@@ -23,7 +23,7 @@ const Mutation = new GraphQLObjectType({
       type: TodoType,
       args: {
         userId: {type: GraphQLInt},
-        id: {type: GraphQLInt},
+        // id: {type: GraphQLInt},
         title: {type: GraphQLString},
         body: {type: GraphQLString},
       },

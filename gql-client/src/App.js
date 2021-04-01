@@ -2,15 +2,17 @@ import {ApolloClient, InMemoryCache, HttpLink, ApolloProvider, from} from '@apol
 import {onError} from '@apollo/client/link/error' 
 
 import './App.css';
+import CreateTodoForm from './components/CreateTodoForm';
+import GetTodos from './components/GetTodos';
+
+const errorLink = onError(({graphqlErrors, networkError}) => {
+  graphqlErrors?.map(({message, location, path}) => alert("Error" + message))
+})
 
 const link = from([
   errorLink,
   new HttpLink({ uri: 'http://localhost:3001/graphql'}),
 ])
-
-const errorLink = onError(({graphqlErrors, networkError}) => {
-  graphqlErrors?.map(({message, location, path}) => alert("Error" + message))
-})
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -21,7 +23,8 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <div>Hello World</div>
+        <CreateTodoForm />
+        <GetTodos />
       </div>
     </ApolloProvider>
   )
